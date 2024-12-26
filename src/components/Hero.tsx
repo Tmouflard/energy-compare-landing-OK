@@ -4,6 +4,7 @@ import { FormStep2 } from "./form/FormStep2";
 import { FormStep3 } from "./form/FormStep3";
 import { FormStep4 } from "./form/FormStep4";
 import { FormStep5 } from "./form/FormStep5";
+import { toast } from "sonner";
 
 export const Hero = () => {
   const [step, setStep] = useState(1);
@@ -28,9 +29,56 @@ export const Hero = () => {
     setStep(prev => prev + 1);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    
+    try {
+      const response = await fetch('https://leadstudio.leadbyte.co.uk/api/submit/676dbf1e663b6113156784', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          client_type: formData.clientType,
+          house_type: formData.houseType,
+          current_company: formData.currentCompany,
+          monthly_bill: formData.monthlyBill,
+          postal_code: formData.postalCode,
+          city: formData.city,
+          full_name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          gdpr_consent: formData.gdprConsent
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log('Success:', data);
+      toast.success("Formulaire envoyé avec succès !");
+      
+      // Reset form
+      setFormData({
+        clientType: "",
+        houseType: "",
+        currentCompany: "",
+        monthlyBill: "",
+        postalCode: "",
+        city: "",
+        fullName: "",
+        email: "",
+        phone: "",
+        gdprConsent: false
+      });
+      setStep(1);
+      
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error("Une erreur est survenue lors de l'envoi du formulaire.");
+    }
   };
 
   return (
