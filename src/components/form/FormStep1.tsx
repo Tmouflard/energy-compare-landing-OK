@@ -16,19 +16,22 @@ export const FormStep1 = ({ onInputChange, onNext }: FormStep1Props) => {
           <Label className="text-lg font-medium text-gray-900 mb-3 block">¿Qué tipo de energía te interesa?</Label>
           <RadioGroup
             onValueChange={(value) => onInputChange("energyType", value)}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4"
+            className="grid grid-cols-1 gap-3"
           >
-            <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
-              <RadioGroupItem value="luz" id="luz" />
-              <Label htmlFor="luz" className="cursor-pointer text-gray-900">Luz</Label>
+            <div className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
+              <div className="flex items-center justify-center w-8 h-8 bg-white border border-gray-300 rounded-lg font-medium text-gray-900">A</div>
+              <RadioGroupItem value="gas" id="gas" className="hidden" />
+              <Label htmlFor="gas" className="flex-grow cursor-pointer text-gray-900">Gas</Label>
             </div>
-            <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
-              <RadioGroupItem value="gas" id="gas" />
-              <Label htmlFor="gas" className="cursor-pointer text-gray-900">Gas</Label>
+            <div className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
+              <div className="flex items-center justify-center w-8 h-8 bg-white border border-gray-300 rounded-lg font-medium text-gray-900">B</div>
+              <RadioGroupItem value="luz" id="luz" className="hidden" />
+              <Label htmlFor="luz" className="flex-grow cursor-pointer text-gray-900">Luz</Label>
             </div>
-            <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
-              <RadioGroupItem value="both" id="both" />
-              <Label htmlFor="both" className="cursor-pointer text-gray-900">Ambos</Label>
+            <div className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
+              <div className="flex items-center justify-center w-8 h-8 bg-white border border-gray-300 rounded-lg font-medium text-gray-900">C</div>
+              <RadioGroupItem value="both" id="both" className="hidden" />
+              <Label htmlFor="both" className="flex-grow cursor-pointer text-gray-900">Gas + Luz</Label>
             </div>
           </RadioGroup>
         </div>
@@ -37,15 +40,17 @@ export const FormStep1 = ({ onInputChange, onNext }: FormStep1Props) => {
           <Label className="text-lg font-medium text-gray-900 mb-3 block">Seleccione el tipo de cliente</Label>
           <RadioGroup
             onValueChange={(value) => onInputChange("clientType", value)}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+            className="grid grid-cols-1 gap-3"
           >
-            <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
-              <RadioGroupItem value="particular" id="particular" />
-              <Label htmlFor="particular" className="cursor-pointer text-gray-900">Particular</Label>
+            <div className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
+              <div className="flex items-center justify-center w-8 h-8 bg-white border border-gray-300 rounded-lg font-medium text-gray-900">A</div>
+              <RadioGroupItem value="particular" id="particular" className="hidden" />
+              <Label htmlFor="particular" className="flex-grow cursor-pointer text-gray-900">Particular</Label>
             </div>
-            <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
-              <RadioGroupItem value="empresa" id="empresa" />
-              <Label htmlFor="empresa" className="cursor-pointer text-gray-900">Empresa</Label>
+            <div className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
+              <div className="flex items-center justify-center w-8 h-8 bg-white border border-gray-300 rounded-lg font-medium text-gray-900">B</div>
+              <RadioGroupItem value="empresa" id="empresa" className="hidden" />
+              <Label htmlFor="empresa" className="flex-grow cursor-pointer text-gray-900">Empresa</Label>
             </div>
           </RadioGroup>
         </div>
@@ -56,17 +61,20 @@ export const FormStep1 = ({ onInputChange, onNext }: FormStep1Props) => {
             onValueChange={(value) => onInputChange("houseType", value)}
             className="grid grid-cols-1 gap-3"
           >
-            <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
-              <RadioGroupItem value="piso" id="piso" />
-              <Label htmlFor="piso" className="cursor-pointer text-gray-900">Piso</Label>
+            <div className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
+              <div className="flex items-center justify-center w-8 h-8 bg-white border border-gray-300 rounded-lg font-medium text-gray-900">A</div>
+              <RadioGroupItem value="piso" id="piso" className="hidden" />
+              <Label htmlFor="piso" className="flex-grow cursor-pointer text-gray-900">Piso</Label>
             </div>
-            <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
-              <RadioGroupItem value="casa" id="casa" />
-              <Label htmlFor="casa" className="cursor-pointer text-gray-900">Casa</Label>
+            <div className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
+              <div className="flex items-center justify-center w-8 h-8 bg-white border border-gray-300 rounded-lg font-medium text-gray-900">B</div>
+              <RadioGroupItem value="casa" id="casa" className="hidden" />
+              <Label htmlFor="casa" className="flex-grow cursor-pointer text-gray-900">Casa</Label>
             </div>
-            <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
-              <RadioGroupItem value="chalet" id="chalet" />
-              <Label htmlFor="chalet" className="cursor-pointer text-gray-900">Chalet</Label>
+            <div className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
+              <div className="flex items-center justify-center w-8 h-8 bg-white border border-gray-300 rounded-lg font-medium text-gray-900">C</div>
+              <RadioGroupItem value="chalet" id="chalet" className="hidden" />
+              <Label htmlFor="chalet" className="flex-grow cursor-pointer text-gray-900">Chalet</Label>
             </div>
           </RadioGroup>
         </div>
