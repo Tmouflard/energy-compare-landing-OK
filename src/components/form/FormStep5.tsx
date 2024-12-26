@@ -3,6 +3,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface FormStep5Props {
   onInputChange: (field: string, value: string | boolean) => void;
@@ -10,6 +12,45 @@ interface FormStep5Props {
 }
 
 export const FormStep5 = ({ onInputChange, onSubmit }: FormStep5Props) => {
+  const [phoneError, setPhoneError] = useState("");
+
+  const validateSpanishPhone = (phone: string) => {
+    // Format attendu: +34XXXXXXXXX (9 chiffres après +34)
+    const spanishPhoneRegex = /^\+34[0-9]{9}$/;
+    
+    if (!phone.startsWith('+34')) {
+      setPhoneError("El número debe comenzar con +34");
+      return false;
+    }
+    
+    if (!spanishPhoneRegex.test(phone)) {
+      setPhoneError("Introduzca un número de teléfono español válido (+34XXXXXXXXX)");
+      return false;
+    }
+    
+    setPhoneError("");
+    return true;
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const phone = e.target.value;
+    if (validateSpanishPhone(phone)) {
+      onInputChange("phone", phone);
+    }
+  };
+
+  const handleSubmitWithValidation = (e: React.FormEvent) => {
+    e.preventDefault();
+    const phoneInput = (e.currentTarget as HTMLFormElement).querySelector('input[type="tel"]') as HTMLInputElement;
+    
+    if (!validateSpanishPhone(phoneInput.value)) {
+      toast.error("Por favor, introduzca un número de teléfono español válido");
+      return;
+    }
+    
+    onSubmit(e);
+  };
+
   return (
     <div className="space-y-6">
       <div className="space-y-4">
@@ -61,10 +102,13 @@ export const FormStep5 = ({ onInputChange, onSubmit }: FormStep5Props) => {
               <Label className="text-sm text-gray-600 mb-2 block">Tu teléfono</Label>
               <Input
                 type="tel"
-                placeholder="Teléfono"
-                onChange={(e) => onInputChange("phone", e.target.value)}
+                placeholder="+34XXXXXXXXX"
+                onChange={handlePhoneChange}
                 className="h-14 text-base bg-white text-gray-900"
               />
+              {phoneError && (
+                <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+              )}
             </div>
           </div>
         </div>
@@ -91,7 +135,7 @@ export const FormStep5 = ({ onInputChange, onSubmit }: FormStep5Props) => {
       </div>
 
       <Button 
-        onClick={onSubmit} 
+        onClick={handleSubmitWithValidation} 
         className="w-full h-14 text-lg font-medium"
       >
         Enviar <ArrowRight className="ml-2 h-5 w-5" />
