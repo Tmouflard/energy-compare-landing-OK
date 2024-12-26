@@ -33,7 +33,7 @@ export const Hero = () => {
   };
 
   return (
-    <section className="bg-gradient-to-br from-primary/90 to-secondary min-h-[600px] flex items-center text-white py-12">
+    <section className="bg-gradient-to-br from-primary to-secondary min-h-[600px] flex items-center text-white py-12">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8">
@@ -45,7 +45,7 @@ export const Hero = () => {
             </p>
           </div>
           
-          <div className="bg-accent rounded-xl shadow-xl p-6 md:p-8 animate-fade-in">
+          <div className="bg-white rounded-3xl shadow-xl p-6 md:p-8 animate-fade-in">
             <div className="flex justify-between mb-8">
               {[1, 2, 3].map((num) => (
                 <div
@@ -54,14 +54,14 @@ export const Hero = () => {
                 >
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium
-                      ${step >= num ? 'bg-primary text-white' : 'bg-gray-200 text-gray-500'}`}
+                      ${step >= num ? 'bg-primary text-white' : 'bg-gray-100 text-gray-400'}`}
                   >
                     {num}
                   </div>
                   {num !== 3 && (
                     <div
                       className={`flex-1 h-1 mx-2 ${
-                        step > num ? 'bg-primary' : 'bg-gray-200'
+                        step > num ? 'bg-primary' : 'bg-gray-100'
                       }`}
                     />
                   )}

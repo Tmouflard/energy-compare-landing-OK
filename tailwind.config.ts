@@ -25,16 +25,16 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#0052CC",
+          DEFAULT: "#2563EB", // Updated to match the image's blue
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#0747A6",
+          DEFAULT: "#1E40AF", // Darker blue for gradient
           foreground: "#FFFFFF",
         },
         accent: {
-          DEFAULT: "#F4F5F7",
-          foreground: "#0052CC",
+          DEFAULT: "#FFFFFF", // Changed to white for form background
+          foreground: "#1E293B",
         },
       },
       keyframes: {
