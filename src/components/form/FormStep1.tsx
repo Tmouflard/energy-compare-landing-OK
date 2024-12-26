@@ -1,6 +1,5 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
@@ -53,16 +52,23 @@ export const FormStep1 = ({ onInputChange, onNext }: FormStep1Props) => {
 
         <div className="text-left">
           <Label className="text-lg font-medium text-gray-900 mb-3 block">¿Qué tipo de vivienda tienes?</Label>
-          <Select onValueChange={(value) => onInputChange("houseType", value)}>
-            <SelectTrigger className="w-full h-14 text-base bg-white text-gray-900">
-              <SelectValue placeholder="Selecciona tipo de vivienda" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="piso" className="text-gray-900">Piso</SelectItem>
-              <SelectItem value="casa" className="text-gray-900">Casa</SelectItem>
-              <SelectItem value="chalet" className="text-gray-900">Chalet</SelectItem>
-            </SelectContent>
-          </Select>
+          <RadioGroup
+            onValueChange={(value) => onInputChange("houseType", value)}
+            className="grid grid-cols-1 gap-3"
+          >
+            <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
+              <RadioGroupItem value="piso" id="piso" />
+              <Label htmlFor="piso" className="cursor-pointer text-gray-900">Piso</Label>
+            </div>
+            <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
+              <RadioGroupItem value="casa" id="casa" />
+              <Label htmlFor="casa" className="cursor-pointer text-gray-900">Casa</Label>
+            </div>
+            <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
+              <RadioGroupItem value="chalet" id="chalet" />
+              <Label htmlFor="chalet" className="cursor-pointer text-gray-900">Chalet</Label>
+            </div>
+          </RadioGroup>
         </div>
       </div>
 
