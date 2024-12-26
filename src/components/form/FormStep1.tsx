@@ -10,7 +10,7 @@ interface FormStep1Props {
 export const FormStep1 = ({ onInputChange, onNext }: FormStep1Props) => {
   const handleValueChange = (value: string) => {
     onInputChange("clientType", value);
-    onNext(); // Appel automatique de onNext après la sélection
+    onNext();
   };
 
   return (
@@ -24,16 +24,16 @@ export const FormStep1 = ({ onInputChange, onNext }: FormStep1Props) => {
             onValueChange={handleValueChange}
             className="grid grid-cols-1 gap-3"
           >
-            <div className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
+            <label className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
               <div className="flex items-center justify-center w-8 h-8 bg-white border border-gray-300 rounded-lg font-medium text-gray-900">A</div>
-              <RadioGroupItem value="particular" id="particular" className="hidden" />
-              <Label htmlFor="particular" className="flex-grow cursor-pointer text-gray-900">Particular</Label>
-            </div>
-            <div className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
+              <RadioGroupItem value="particular" id="particular" />
+              <span className="flex-grow cursor-pointer text-gray-900">Particular</span>
+            </label>
+            <label className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
               <div className="flex items-center justify-center w-8 h-8 bg-white border border-gray-300 rounded-lg font-medium text-gray-900">B</div>
-              <RadioGroupItem value="autonomo" id="autonomo" className="hidden" />
-              <Label htmlFor="autonomo" className="flex-grow cursor-pointer text-gray-900">Autónomo / Pyme</Label>
-            </div>
+              <RadioGroupItem value="autonomo" id="autonomo" />
+              <span className="flex-grow cursor-pointer text-gray-900">Autónomo / Pyme</span>
+            </label>
           </RadioGroup>
         </div>
       </div>
