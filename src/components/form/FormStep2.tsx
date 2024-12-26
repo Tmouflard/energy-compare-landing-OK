@@ -1,6 +1,5 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 interface FormStep2Props {
@@ -9,13 +8,18 @@ interface FormStep2Props {
 }
 
 export const FormStep2 = ({ onInputChange, onNext }: FormStep2Props) => {
+  const handleValueChange = (value: string) => {
+    onInputChange("houseType", value);
+    onNext(); // Appel automatique de onNext après la sélection
+  };
+
   return (
     <div className="space-y-6">
       <div className="space-y-4">
         <div className="text-left">
           <Label className="text-lg font-medium text-gray-900 mb-3 block">¿Qué tipo de vivienda tienes?</Label>
           <RadioGroup
-            onValueChange={(value) => onInputChange("houseType", value)}
+            onValueChange={handleValueChange}
             className="grid grid-cols-1 gap-3"
           >
             <div className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
@@ -36,13 +40,6 @@ export const FormStep2 = ({ onInputChange, onNext }: FormStep2Props) => {
           </RadioGroup>
         </div>
       </div>
-
-      <Button 
-        onClick={onNext} 
-        className="w-full h-14 text-lg font-medium"
-      >
-        Siguiente <ArrowRight className="ml-2 h-5 w-5" />
-      </Button>
     </div>
   );
 };

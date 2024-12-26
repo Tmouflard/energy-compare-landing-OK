@@ -1,6 +1,5 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 interface FormStep1Props {
@@ -9,6 +8,11 @@ interface FormStep1Props {
 }
 
 export const FormStep1 = ({ onInputChange, onNext }: FormStep1Props) => {
+  const handleValueChange = (value: string) => {
+    onInputChange("clientType", value);
+    onNext(); // Appel automatique de onNext après la sélection
+  };
+
   return (
     <div className="space-y-6">
       <div className="space-y-4">
@@ -17,7 +21,7 @@ export const FormStep1 = ({ onInputChange, onNext }: FormStep1Props) => {
             Seleccione el tipo de cliente:
           </Label>
           <RadioGroup
-            onValueChange={(value) => onInputChange("clientType", value)}
+            onValueChange={handleValueChange}
             className="grid grid-cols-1 gap-3"
           >
             <div className="flex items-center space-x-3 bg-gray-100 rounded-lg p-4 border border-gray-200 hover:border-primary cursor-pointer">
@@ -33,13 +37,6 @@ export const FormStep1 = ({ onInputChange, onNext }: FormStep1Props) => {
           </RadioGroup>
         </div>
       </div>
-
-      <Button 
-        onClick={onNext} 
-        className="w-full h-14 text-lg font-medium"
-      >
-        Siguiente <ArrowRight className="ml-2 h-5 w-5" />
-      </Button>
     </div>
   );
 };
