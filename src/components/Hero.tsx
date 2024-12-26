@@ -33,38 +33,34 @@ export const Hero = () => {
     e.preventDefault();
     
     // Création d'un FormData pour l'envoi
-    const formDataToSend = new FormData();
-    formDataToSend.append('returnjson', 'yes');
-    formDataToSend.append('campid', 'PIPELINE-ITE');
+    const form = new FormData();
     
-    // Mapping des champs du formulaire
-    formDataToSend.append('habitation', formData.houseType);
-    formDataToSend.append('proprietaire', formData.clientType);
-    formDataToSend.append('chauffage', formData.currentCompany);
-    formDataToSend.append('postcode', formData.postalCode);
-    formDataToSend.append('city', formData.city);
+    // Paramètres requis par Leadbyte
+    form.append('returnjson', 'yes');
+    form.append('campid', 'PIPELINE-ITE');
+    
+    // Mapping des champs du formulaire vers les noms attendus par Leadbyte
+    form.append('habitation', formData.houseType);
+    form.append('proprietaire', formData.clientType);
+    form.append('chauffage', formData.currentCompany);
+    form.append('postcode', formData.postalCode);
+    form.append('city', formData.city);
     
     // Séparation du nom complet en prénom et nom
     const [firstname = "", lastname = ""] = formData.fullName.split(" ");
-    formDataToSend.append('firstname', firstname);
-    formDataToSend.append('lastname', lastname);
+    form.append('firstname', firstname);
+    form.append('lastname', lastname);
     
-    formDataToSend.append('email', formData.email);
-    formDataToSend.append('phone1', formData.phone);
-    formDataToSend.append('consentContact', formData.gdprConsent ? 'yes' : 'no');
+    form.append('email', formData.email);
+    form.append('phone1', formData.phone);
+    form.append('consentContact', formData.gdprConsent ? 'yes' : 'no');
     
     try {
       const response = await fetch('https://leadstudio.leadbyte.co.uk/api/submit.php', {
         method: 'POST',
-        body: formDataToSend
+        body: form
       });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      console.log('Success:', data);
+      
       toast.success("Formulaire envoyé avec succès !");
       
       // Reset form
@@ -83,9 +79,7 @@ export const Hero = () => {
       setStep(1);
       
       // Redirection après succès
-      setTimeout(() => {
-        window.location.href = 'https://web.france-aides-energies.com/merci-rac/';
-      }, 500);
+      window.location.href = 'https://web.france-aides-energies.com/merci-rac/';
       
     } catch (error) {
       console.error('Error:', error);
@@ -168,4 +162,3 @@ export const Hero = () => {
     </section>
   );
 };
-```
