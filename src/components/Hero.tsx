@@ -40,9 +40,9 @@ export const Hero = () => {
     form.append('campid', 'GAZELEC-ESPAGNE');
     
     // Mapping des champs du formulaire vers les noms attendus par Leadbyte
-    form.append('typeform', formData.houseType); // Type de logement
-    form.append('particulier', formData.clientType); // Situation du logement
-    form.append('fournisseur_actuel', formData.currentCompany); // Fournisseur actuel
+    form.append('typeform', formData.houseType);
+    form.append('particulier', formData.clientType);
+    form.append('fournisseur_actuel', formData.currentCompany);
     form.append('postcode', formData.postalCode);
     form.append('towncity', formData.city);
     
@@ -83,8 +83,8 @@ export const Hero = () => {
       });
       setStep(1);
       
-      // Redirection après succès
-      window.location.href = 'https://web.france-aides-energies.com/merci-rac/';
+      // Redirection vers la nouvelle URL
+      window.location.href = 'https://tucomparadorenergetico.com/energia-gracias-1/';
       
     } catch (error) {
       console.error('Error:', error);
