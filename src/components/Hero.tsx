@@ -35,6 +35,7 @@ export const Hero = () => {
     try {
       const response = await fetch('https://leadstudio.leadbyte.co.uk/api/submit/676dbf1e663b6113156784', {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -52,12 +53,10 @@ export const Hero = () => {
         }),
       });
 
-      if (!response.ok) {
+      if (!response.ok && response.type !== 'opaque') {
         throw new Error('Network response was not ok');
       }
 
-      const data = await response.json();
-      console.log('Success:', data);
       toast.success("Formulaire envoyé avec succès !");
       
       // Reset form
