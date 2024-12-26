@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { FormStep1 } from "./form/FormStep1";
 import { FormStep2 } from "./form/FormStep2";
 import { FormStep3 } from "./form/FormStep3";
@@ -21,32 +21,28 @@ export const Hero = () => {
     gdprConsent: false
   });
 
-  const handleInputChange = (field: string, value: string | boolean) => {
+  const handleInputChange = useCallback((field: string, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-  };
+  }, []);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setStep(prev => prev + 1);
-  };
+  }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Création d'un FormData pour l'envoi
     const form = new FormData();
     
-    // Paramètres requis par Leadbyte
     form.append('returnjson', 'yes');
     form.append('campid', 'GAZELEC-ESPAGNE');
     
-    // Mapping des champs du formulaire vers les noms attendus par Leadbyte
     form.append('typeform', formData.houseType);
     form.append('particulier', formData.clientType);
     form.append('fournisseur_actuel', formData.currentCompany);
     form.append('postcode', formData.postalCode);
     form.append('towncity', formData.city);
     
-    // Séparation du nom complet en prénom et nom
     const [firstname = "", lastname = ""] = formData.fullName.split(" ");
     form.append('firstname', firstname);
     form.append('lastname', lastname);
@@ -54,7 +50,6 @@ export const Hero = () => {
     form.append('email', formData.email);
     form.append('phone1', formData.phone);
     
-    // Champs additionnels requis par l'API
     form.append('source', window.location.href);
     form.append('type_energie', 'electricite');
     form.append('objectif_recherche', 'economiser');
@@ -68,7 +63,6 @@ export const Hero = () => {
       
       toast.success("Formulaire envoyé avec succès !");
       
-      // Reset form
       setFormData({
         clientType: "",
         houseType: "",
@@ -83,14 +77,13 @@ export const Hero = () => {
       });
       setStep(1);
       
-      // Redirection vers la nouvelle URL
       window.location.href = 'https://tucomparadorenergetico.com/energia-gracias-1/';
       
     } catch (error) {
       console.error('Error:', error);
       toast.error("Une erreur est survenue lors de l'envoi du formulaire.");
     }
-  };
+  }, [formData]);
 
   return (
     <section className="bg-gradient-to-br from-primary to-secondary min-h-[600px] flex items-center text-white py-12">
