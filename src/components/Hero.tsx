@@ -2,11 +2,12 @@ import { useState } from "react";
 import { FormStep1 } from "./form/FormStep1";
 import { FormStep2 } from "./form/FormStep2";
 import { FormStep3 } from "./form/FormStep3";
+import { FormStep4 } from "./form/FormStep4";
+import { FormStep5 } from "./form/FormStep5";
 
 export const Hero = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    energyType: "",
     clientType: "",
     houseType: "",
     currentCompany: "",
@@ -47,10 +48,10 @@ export const Hero = () => {
           
           <div className="bg-white rounded-3xl shadow-xl p-6 md:p-8 animate-fade-in">
             <div className="flex justify-between mb-8">
-              {[1, 2, 3].map((num) => (
+              {[1, 2, 3, 4, 5].map((num) => (
                 <div
                   key={num}
-                  className={`flex items-center ${num !== 3 ? 'flex-1' : ''}`}
+                  className={`flex items-center ${num !== 5 ? 'flex-1' : ''}`}
                 >
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium
@@ -58,7 +59,7 @@ export const Hero = () => {
                   >
                     {num}
                   </div>
-                  {num !== 3 && (
+                  {num !== 5 && (
                     <div
                       className={`flex-1 h-1 mx-2 ${
                         step > num ? 'bg-primary' : 'bg-gray-100'
@@ -84,6 +85,18 @@ export const Hero = () => {
               )}
               {step === 3 && (
                 <FormStep3
+                  onInputChange={handleInputChange}
+                  onNext={handleNext}
+                />
+              )}
+              {step === 4 && (
+                <FormStep4
+                  onInputChange={handleInputChange}
+                  onNext={handleNext}
+                />
+              )}
+              {step === 5 && (
+                <FormStep5
                   onInputChange={handleInputChange}
                   onSubmit={handleSubmit}
                 />
