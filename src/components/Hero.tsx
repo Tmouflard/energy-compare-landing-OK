@@ -40,11 +40,11 @@ export const Hero = () => {
     form.append('campid', 'PIPELINE-ITE');
     
     // Mapping des champs du formulaire vers les noms attendus par Leadbyte
-    form.append('habitation', formData.houseType);
-    form.append('proprietaire', formData.clientType);
-    form.append('chauffage', formData.currentCompany);
+    form.append('typeform', formData.houseType); // Type de logement
+    form.append('particulier', formData.clientType); // Situation du logement
+    form.append('fournisseur_actuel', formData.currentCompany); // Fournisseur actuel
     form.append('postcode', formData.postalCode);
-    form.append('city', formData.city);
+    form.append('towncity', formData.city);
     
     // Séparation du nom complet en prénom et nom
     const [firstname = "", lastname = ""] = formData.fullName.split(" ");
@@ -53,7 +53,12 @@ export const Hero = () => {
     
     form.append('email', formData.email);
     form.append('phone1', formData.phone);
-    form.append('consentContact', formData.gdprConsent ? 'yes' : 'no');
+    
+    // Champs additionnels requis par l'API
+    form.append('source', window.location.href);
+    form.append('type_energie', 'electricite');
+    form.append('objectif_recherche', 'economiser');
+    form.append('b2b', 'no');
     
     try {
       const response = await fetch('https://leadstudio.leadbyte.co.uk/api/submit.php', {
