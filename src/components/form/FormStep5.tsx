@@ -13,9 +13,9 @@ interface FormStep5Props {
 
 export const FormStep5 = ({ onInputChange, onSubmit }: FormStep5Props) => {
   const [phoneError, setPhoneError] = useState("");
+  const [postalCodeError, setPostalCodeError] = useState("");
 
   const validateSpanishPhone = (phone: string) => {
-    // Format attendu: +34XXXXXXXXX (9 chiffres après +34)
     const spanishPhoneRegex = /^\+34[0-9]{9}$/;
     
     if (!phone.startsWith('+34')) {
@@ -32,6 +32,19 @@ export const FormStep5 = ({ onInputChange, onSubmit }: FormStep5Props) => {
     return true;
   };
 
+  const validateSpanishPostalCode = (postalCode: string) => {
+    // Le code postal espagnol doit avoir 5 chiffres et commencer par 01-52
+    const spanishPostalCodeRegex = /^(?:0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$/;
+    
+    if (!spanishPostalCodeRegex.test(postalCode)) {
+      setPostalCodeError("Introduzca un código postal español válido (5 dígitos)");
+      return false;
+    }
+    
+    setPostalCodeError("");
+    return true;
+  };
+
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const phone = e.target.value;
     if (validateSpanishPhone(phone)) {
@@ -39,12 +52,28 @@ export const FormStep5 = ({ onInputChange, onSubmit }: FormStep5Props) => {
     }
   };
 
+  const handlePostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const postalCode = e.target.value;
+    if (validateSpanishPostalCode(postalCode)) {
+      onInputChange("postalCode", postalCode);
+    }
+  };
+
   const handleSubmitWithValidation = (e: React.FormEvent) => {
     e.preventDefault();
     const phoneInput = document.querySelector('input[type="tel"]') as HTMLInputElement;
+    const postalCodeInput = document.querySelector('input[name="postalCode"]') as HTMLInputElement;
     
-    if (!validateSpanishPhone(phoneInput.value)) {
+    const isPhoneValid = validateSpanishPhone(phoneInput.value);
+    const isPostalCodeValid = validateSpanishPostalCode(postalCodeInput.value);
+    
+    if (!isPhoneValid) {
       toast.error("Por favor, introduzca un número de teléfono español válido");
+      return;
+    }
+
+    if (!isPostalCodeValid) {
+      toast.error("Por favor, introduzca un código postal español válido");
       return;
     }
     
@@ -62,10 +91,14 @@ export const FormStep5 = ({ onInputChange, onSubmit }: FormStep5Props) => {
               <Label className="text-sm text-gray-600 mb-2 block">Tu código postal</Label>
               <Input
                 type="text"
+                name="postalCode"
                 placeholder="Código postal"
-                onChange={(e) => onInputChange("postalCode", e.target.value)}
+                onChange={handlePostalCodeChange}
                 className="h-14 text-base bg-white text-gray-900"
               />
+              {postalCodeError && (
+                <p className="text-red-500 text-sm mt-1">{postalCodeError}</p>
+              )}
             </div>
 
             <div>
