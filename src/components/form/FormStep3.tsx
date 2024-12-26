@@ -14,42 +14,42 @@ export const FormStep3 = ({ onInputChange, onSubmit }: FormStep3Props) => {
     <div className="space-y-6">
       <div className="space-y-4">
         <div className="text-left">
-          <Label className="text-lg font-medium mb-3 block">Tu ciudad</Label>
+          <Label className="text-lg font-medium text-gray-900 mb-3 block">Tu ciudad</Label>
           <Input
             type="text"
             placeholder="Ciudad"
             onChange={(e) => onInputChange("city", e.target.value)}
-            className="h-14 text-base bg-white"
+            className="h-14 text-base bg-white text-gray-900"
           />
         </div>
 
         <div className="text-left">
-          <Label className="text-lg font-medium mb-3 block">Tu nombre y apellidos</Label>
+          <Label className="text-lg font-medium text-gray-900 mb-3 block">Tu nombre y apellidos</Label>
           <Input
             type="text"
             placeholder="Nombre completo"
             onChange={(e) => onInputChange("fullName", e.target.value)}
-            className="h-14 text-base bg-white"
+            className="h-14 text-base bg-white text-gray-900"
           />
         </div>
 
         <div className="text-left">
-          <Label className="text-lg font-medium mb-3 block">Tu email</Label>
+          <Label className="text-lg font-medium text-gray-900 mb-3 block">Tu email</Label>
           <Input
             type="email"
             placeholder="Email"
             onChange={(e) => onInputChange("email", e.target.value)}
-            className="h-14 text-base bg-white"
+            className="h-14 text-base bg-white text-gray-900"
           />
         </div>
 
         <div className="text-left">
-          <Label className="text-lg font-medium mb-3 block">Tu teléfono</Label>
+          <Label className="text-lg font-medium text-gray-900 mb-3 block">Tu teléfono</Label>
           <Input
             type="tel"
             placeholder="Teléfono"
             onChange={(e) => onInputChange("phone", e.target.value)}
-            className="h-14 text-base bg-white"
+            className="h-14 text-base bg-white text-gray-900"
           />
         </div>
 
@@ -59,7 +59,7 @@ export const FormStep3 = ({ onInputChange, onSubmit }: FormStep3Props) => {
             className="mt-1"
             onCheckedChange={(checked) => onInputChange("gdprConsent", checked as boolean)}
           />
-          <Label htmlFor="gdpr" className="text-sm leading-tight">
+          <Label htmlFor="gdpr" className="text-sm leading-tight text-gray-900">
             Al hacer clic en «Enviar», confirmo que he leído y acepto las{" "}
             <a
               href="https://comparadorluzgas.com/gaz-y-luz-condiciones-generales/"

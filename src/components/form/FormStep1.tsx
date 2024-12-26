@@ -14,53 +14,53 @@ export const FormStep1 = ({ onInputChange, onNext }: FormStep1Props) => {
     <div className="space-y-6">
       <div className="space-y-4">
         <div className="text-left">
-          <Label className="text-lg font-medium mb-3 block">¿Qué tipo de energía te interesa?</Label>
+          <Label className="text-lg font-medium text-gray-900 mb-3 block">¿Qué tipo de energía te interesa?</Label>
           <RadioGroup
             onValueChange={(value) => onInputChange("energyType", value)}
             className="grid grid-cols-1 md:grid-cols-3 gap-4"
           >
             <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
               <RadioGroupItem value="luz" id="luz" />
-              <Label htmlFor="luz" className="cursor-pointer">Luz</Label>
+              <Label htmlFor="luz" className="cursor-pointer text-gray-900">Luz</Label>
             </div>
             <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
               <RadioGroupItem value="gas" id="gas" />
-              <Label htmlFor="gas" className="cursor-pointer">Gas</Label>
+              <Label htmlFor="gas" className="cursor-pointer text-gray-900">Gas</Label>
             </div>
             <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
               <RadioGroupItem value="both" id="both" />
-              <Label htmlFor="both" className="cursor-pointer">Ambos</Label>
+              <Label htmlFor="both" className="cursor-pointer text-gray-900">Ambos</Label>
             </div>
           </RadioGroup>
         </div>
 
         <div className="text-left">
-          <Label className="text-lg font-medium mb-3 block">Seleccione el tipo de cliente</Label>
+          <Label className="text-lg font-medium text-gray-900 mb-3 block">Seleccione el tipo de cliente</Label>
           <RadioGroup
             onValueChange={(value) => onInputChange("clientType", value)}
             className="grid grid-cols-1 md:grid-cols-2 gap-4"
           >
             <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
               <RadioGroupItem value="particular" id="particular" />
-              <Label htmlFor="particular" className="cursor-pointer">Particular</Label>
+              <Label htmlFor="particular" className="cursor-pointer text-gray-900">Particular</Label>
             </div>
             <div className="flex items-center space-x-2 bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-primary cursor-pointer">
               <RadioGroupItem value="empresa" id="empresa" />
-              <Label htmlFor="empresa" className="cursor-pointer">Empresa</Label>
+              <Label htmlFor="empresa" className="cursor-pointer text-gray-900">Empresa</Label>
             </div>
           </RadioGroup>
         </div>
 
         <div className="text-left">
-          <Label className="text-lg font-medium mb-3 block">¿Qué tipo de vivienda tienes?</Label>
+          <Label className="text-lg font-medium text-gray-900 mb-3 block">¿Qué tipo de vivienda tienes?</Label>
           <Select onValueChange={(value) => onInputChange("houseType", value)}>
-            <SelectTrigger className="w-full h-14 text-base bg-white">
+            <SelectTrigger className="w-full h-14 text-base bg-white text-gray-900">
               <SelectValue placeholder="Selecciona tipo de vivienda" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="piso">Piso</SelectItem>
-              <SelectItem value="casa">Casa</SelectItem>
-              <SelectItem value="chalet">Chalet</SelectItem>
+              <SelectItem value="piso" className="text-gray-900">Piso</SelectItem>
+              <SelectItem value="casa" className="text-gray-900">Casa</SelectItem>
+              <SelectItem value="chalet" className="text-gray-900">Chalet</SelectItem>
             </SelectContent>
           </Select>
         </div>
