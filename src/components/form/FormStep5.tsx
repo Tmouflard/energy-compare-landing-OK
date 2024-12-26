@@ -41,7 +41,7 @@ export const FormStep5 = ({ onInputChange, onSubmit }: FormStep5Props) => {
 
   const handleSubmitWithValidation = (e: React.FormEvent) => {
     e.preventDefault();
-    const phoneInput = (e.currentTarget as HTMLFormElement).querySelector('input[type="tel"]') as HTMLInputElement;
+    const phoneInput = document.querySelector('input[type="tel"]') as HTMLInputElement;
     
     if (!validateSpanishPhone(phoneInput.value)) {
       toast.error("Por favor, introduzca un número de teléfono español válido");
@@ -135,6 +135,7 @@ export const FormStep5 = ({ onInputChange, onSubmit }: FormStep5Props) => {
       </div>
 
       <Button 
+        type="submit"
         onClick={handleSubmitWithValidation} 
         className="w-full h-14 text-lg font-medium"
       >
