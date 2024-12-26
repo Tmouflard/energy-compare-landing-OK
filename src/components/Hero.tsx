@@ -37,7 +37,7 @@ export const Hero = () => {
     
     // Paramètres requis par Leadbyte
     form.append('returnjson', 'yes');
-    form.append('campid', 'PIPELINE-ITE');
+    form.append('campid', 'GAZELEC-ESPAGNE');
     
     // Mapping des champs du formulaire vers les noms attendus par Leadbyte
     form.append('typeform', formData.houseType); // Type de logement
