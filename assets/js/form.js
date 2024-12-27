@@ -48,19 +48,34 @@ jQuery(document).ready(function($) {
         });
     });
 
-    // Validation du formulaire
+    // Validation du numéro de téléphone espagnol
+    function validateSpanishPhone(phone) {
+        const spanishPhoneRegex = /^\+34[0-9]{9}$/;
+        return spanishPhoneRegex.test(phone);
+    }
+
+    // Validation du code postal espagnol
+    function validateSpanishPostalCode(postalCode) {
+        const spanishPostalCodeRegex = /^(?:0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$/;
+        return spanishPostalCodeRegex.test(postalCode);
+    }
+
+    // Gestionnaire de soumission du formulaire
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const formData = new FormData(form);
-        
-        // Validation des données
-        if (!validateSpanishPhone(formData.get('phone'))) {
+        const phone = formData.get('phone');
+        const postalCode = formData.get('postalCode');
+
+        // Validation du téléphone
+        if (!validateSpanishPhone(phone)) {
             alert('Por favor, introduzca un número de teléfono español válido (+34XXXXXXXXX)');
             return;
         }
 
-        if (!validateSpanishPostalCode(formData.get('postalCode'))) {
+        // Validation du code postal
+        if (!validateSpanishPostalCode(postalCode)) {
             alert('Por favor, introduzca un código postal español válido (5 dígitos)');
             return;
         }
@@ -103,15 +118,4 @@ jQuery(document).ready(function($) {
             alert('Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde.');
         }
     });
-
-    // Fonctions de validation
-    function validateSpanishPhone(phone) {
-        const spanishPhoneRegex = /^\+34[0-9]{9}$/;
-        return spanishPhoneRegex.test(phone);
-    }
-
-    function validateSpanishPostalCode(postalCode) {
-        const spanishPostalCodeRegex = /^(?:0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$/;
-        return spanishPostalCodeRegex.test(postalCode);
-    }
 });
