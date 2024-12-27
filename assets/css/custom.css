@@ -1,123 +1,144 @@
 .form-container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px;
     background: white;
     border-radius: 24px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.form-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form-title h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #1a237e;
+    margin-bottom: 10px;
+}
+
+.form-title span {
+    color: #e91e63;
+}
+
+.form-title .underline {
+    width: 180px;
+    height: 3px;
+    background: #e91e63;
+    margin: 0 auto;
+    border-radius: 3px;
+}
+
 .form-step {
     display: none;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .form-step.active {
     display: block;
 }
 
-.progress-bar {
-    display: flex;
-    justify-content: space-between;
+.question-group {
     margin-bottom: 30px;
-    padding: 0 20px;
 }
 
-.step-indicator {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.question-group h3 {
+    font-size: 1.25rem;
+    color: #1a237e;
+    margin-bottom: 20px;
     font-weight: 500;
-    color: #6b7280;
-    position: relative;
 }
 
-.step-indicator.active {
-    background: #2563EB;
-    color: white;
+.radio-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-.step-indicator.completed {
-    background: #2563EB;
-    color: white;
-}
-
-.step-line {
+.radio-option {
     flex: 1;
-    height: 4px;
-    background: #e5e7eb;
-    margin: 16px 8px;
+    min-width: 150px;
 }
 
-.step-line.active {
-    background: #2563EB;
+.radio-option input[type="radio"] {
+    display: none;
 }
 
-.form-option {
-    background: #f3f4f6;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.form-option:hover {
-    border-color: #2563EB;
-}
-
-.form-option input[type="radio"] {
-    margin-right: 10px;
-}
-
-.option-letter {
-    width: 32px;
-    height: 32px;
-    background: white;
-    border: 1px solid #d1d5db;
+.radio-option label {
+    display: block;
+    padding: 12px 20px;
+    background: #f5f5f5;
+    border: 2px solid #e0e0e0;
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 500;
-    color: #111827;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.radio-option input[type="radio"]:checked + label {
+    background: #e8f0fe;
+    border-color: #1a237e;
+    color: #1a237e;
 }
 
 .form-input {
     width: 100%;
     padding: 12px;
-    border: 1px solid #e5e7eb;
+    border: 2px solid #e0e0e0;
     border-radius: 8px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.form-input:focus {
+    border-color: #1a237e;
+    outline: none;
 }
 
 .submit-button {
     width: 100%;
-    padding: 14px;
-    background: #2563EB;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+    padding: 15px 30px;
+    background: #4CAF50;
     color: white;
     border: none;
     border-radius: 8px;
-    font-weight: 500;
+    font-size: 1.1rem;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    transition: background 0.3s ease;
 }
 
 .submit-button:hover {
-    background: #1d4ed8;
+    background: #43A047;
 }
 
-.error-message {
-    color: #ef4444;
-    font-size: 14px;
-    margin-top: 4px;
+.consent-checkbox {
+    margin-bottom: 20px;
+}
+
+.consent-checkbox label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.consent-checkbox input[type="checkbox"] {
+    margin-top: 3px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
