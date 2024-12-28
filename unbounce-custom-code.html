@@ -35,51 +35,10 @@
   .form-container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 1.5rem;
     background: white;
     border-radius: 24px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  .progress-bar {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-    padding: 0 20px;
-  }
-
-  .step-indicator {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 500;
-    color: #6b7280;
-    position: relative;
-  }
-
-  .step-indicator.active {
-    background: #2563EB;
-    color: white;
-  }
-
-  .step-indicator.completed {
-    background: #2563EB;
-    color: white;
-  }
-
-  .step-line {
-    flex: 1;
-    height: 4px;
-    background: #e5e7eb;
-    margin: 16px 8px;
-  }
-
-  .step-line.active {
-    background: #2563EB;
   }
 
   .form-step {
@@ -90,12 +49,19 @@
     display: block;
   }
 
+  .form-step h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1.5rem;
+  }
+
   .form-option {
     background: #f3f4f6;
     border: 1px solid #e5e7eb;
     border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 12px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -163,18 +129,6 @@
   </header>
 
   <div class="form-container">
-    <div class="progress-bar">
-      <div class="step-indicator active">1</div>
-      <div class="step-line"></div>
-      <div class="step-indicator">2</div>
-      <div class="step-line"></div>
-      <div class="step-indicator">3</div>
-      <div class="step-line"></div>
-      <div class="step-indicator">4</div>
-      <div class="step-line"></div>
-      <div class="step-indicator">5</div>
-    </div>
-
     <form id="energyForm" action="https://leadstudio.leadbyte.co.uk/api/submit.php" method="POST" target="_blank">
       <input type="hidden" name="returnjson" value="yes">
       <input type="hidden" name="campid" value="GAZELEC-ESPAGNE">
@@ -303,41 +257,15 @@
 document.addEventListener('DOMContentLoaded', function() {
   let currentStep = 1;
   const form = document.getElementById('energyForm');
-  const steps = document.querySelectorAll('.form-step');
-  const indicators = document.querySelectorAll('.step-indicator');
-  const stepLines = document.querySelectorAll('.step-line');
 
   // Set the source field value
   document.querySelector('input[name="source"]').value = window.location.href;
 
-  function updateProgressBar(step) {
-    indicators.forEach((indicator, index) => {
-      if (index + 1 < step) {
-        indicator.classList.add('completed');
-        indicator.classList.remove('active');
-      } else if (index + 1 === step) {
-        indicator.classList.add('active');
-        indicator.classList.remove('completed');
-      } else {
-        indicator.classList.remove('active', 'completed');
-      }
-    });
-
-    stepLines.forEach((line, index) => {
-      if (index + 1 < step) {
-        line.classList.add('active');
-      } else {
-        line.classList.remove('active');
-      }
-    });
-  }
-
   function showStep(step) {
-    steps.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
     const currentStepElement = document.querySelector(`[data-step="${step}"]`);
     if (currentStepElement) {
       currentStepElement.classList.add('active');
-      updateProgressBar(step);
     }
   }
 
