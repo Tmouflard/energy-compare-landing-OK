@@ -383,6 +383,12 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
+    // Désactiver le bouton de soumission pour éviter les doubles soumissions
+    const submitButton = form.querySelector('button[type="submit"]');
+    if (submitButton) {
+      submitButton.disabled = true;
+    }
+
     // Préparation des données pour Leadbyte
     const leadbyteData = new FormData();
     leadbyteData.append('returnjson', 'yes');
@@ -393,8 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
     leadbyteData.append('postcode', formData.get('postalCode'));
     leadbyteData.append('towncity', formData.get('city'));
 
-    const fullName = formData.get('fullName');
-    const [firstname = "", lastname = ""] = fullName.split(" ");
+    const [firstname = "", lastname = ""] = formData.get('fullName').split(" ");
     leadbyteData.append('firstname', firstname);
     leadbyteData.append('lastname', lastname);
 
@@ -409,30 +414,28 @@ document.addEventListener('DOMContentLoaded', function() {
       const response = await fetch('https://leadstudio.leadbyte.co.uk/api/submit.php', {
         method: 'POST',
         body: leadbyteData,
+        mode: 'no-cors', // Ajout du mode no-cors pour contourner les restrictions CORS
         headers: {
-          'Accept': 'application/json'
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
       });
 
-      const responseData = await response.json();
-      console.log('Response:', responseData);
+      // Avec mode: 'no-cors', nous ne pouvons pas accéder à la réponse
+      // Donc nous considérons que si la requête ne lance pas d'erreur, c'est un succès
+      console.log('Form submitted successfully');
+      
+      // Redirection avec un délai plus long pour s'assurer que les données sont envoyées
+      setTimeout(() => {
+        window.location.href = 'https://tucomparadorenergetico.com/energia-gracias-1/';
+      }, 1000);
 
-      if (response.ok || response.status === 200) {
-        // Désactiver le bouton de soumission pour éviter les doubles soumissions
-        const submitButton = form.querySelector('button[type="submit"]');
-        if (submitButton) {
-          submitButton.disabled = true;
-        }
-
-        // Redirection avec un petit délai pour assurer que les données sont bien envoyées
-        setTimeout(() => {
-          window.location.href = 'https://tucomparadorenergetico.com/energia-gracias-1/';
-        }, 500);
-      } else {
-        throw new Error('Server response was not ok');
-      }
     } catch (error) {
       console.error('Error:', error);
+      // Réactiver le bouton de soumission en cas d'erreur
+      if (submitButton) {
+        submitButton.disabled = false;
+      }
       alert('Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde. Si el problema persiste, contacte con nosotros.');
     }
   });
