@@ -1,15 +1,352 @@
-import { Hero } from "@/components/Hero";
-import { Features } from "@/components/Features";
-import { HowItWorks } from "@/components/HowItWorks";
-import { FAQ } from "@/components/FAQ";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const Index = () => {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    clientType: "",
+    houseType: "",
+    currentCompany: "",
+    monthlyBill: "",
+    postalCode: "",
+    city: "",
+    fullName: "",
+    email: "",
+    phone: "",
+    gdprConsent: false
+  });
+
+  const handleInputChange = (field: string, value: string | boolean) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleNext = () => {
+    setStep(prev => prev + 1);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const form = new FormData();
+    
+    form.append('returnjson', 'yes');
+    form.append('campid', 'GAZELEC-ESPAGNE');
+    
+    form.append('typeform', formData.houseType);
+    form.append('particulier', formData.clientType);
+    form.append('fournisseur_actuel', formData.currentCompany);
+    form.append('postcode', formData.postalCode);
+    form.append('towncity', formData.city);
+    
+    const [firstname = "", lastname = ""] = formData.fullName.split(" ");
+    form.append('firstname', firstname);
+    form.append('lastname', lastname);
+    
+    form.append('email', formData.email);
+    form.append('phone1', formData.phone);
+    
+    form.append('source', window.location.href);
+    form.append('type_energie', 'electricite');
+    form.append('objectif_recherche', 'economiser');
+    form.append('b2b', 'no');
+    
+    try {
+      const response = await fetch('https://leadstudio.leadbyte.co.uk/api/submit.php', {
+        method: 'POST',
+        body: form
+      });
+      
+      toast.success("Formulaire envoyé avec succès !");
+      
+      setFormData({
+        clientType: "",
+        houseType: "",
+        currentCompany: "",
+        monthlyBill: "",
+        postalCode: "",
+        city: "",
+        fullName: "",
+        email: "",
+        phone: "",
+        gdprConsent: false
+      });
+      setStep(1);
+      
+      window.location.href = 'https://tucomparadorenergetico.com/energia-gracias-1/';
+      
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error("Une erreur est survenue lors de l'envoi du formulaire.");
+    }
+  };
+
   return (
-    <main className="min-h-screen">
-      <Hero />
-      <Features />
-      <HowItWorks />
-      <FAQ />
+    <main className="min-h-screen bg-gradient-to-br from-primary to-secondary">
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-4xl mx-auto">
+          {/* Header Section */}
+          <header className="text-center text-white mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              CALCULEZ VOTRE PRIME
+            </h1>
+            <p className="text-xl opacity-90">
+              Comparez les meilleures offres d'énergie et économisez sur vos factures
+            </p>
+          </header>
+
+          {/* Form Section */}
+          <div className="bg-white rounded-3xl shadow-xl p-6 md:p-8">
+            {/* Progress Steps */}
+            <div className="flex justify-between mb-8">
+              {[1, 2, 3, 4, 5].map((num) => (
+                <div
+                  key={num}
+                  className={`flex items-center ${num !== 5 ? 'flex-1' : ''}`}
+                >
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium
+                      ${step >= num ? 'bg-primary text-white' : 'bg-gray-100 text-gray-400'}`}
+                  >
+                    {num}
+                  </div>
+                  {num !== 5 && (
+                    <div
+                      className={`flex-1 h-1 mx-2 ${
+                        step > num ? 'bg-primary' : 'bg-gray-100'
+                      }`}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Step 1 */}
+              {step === 1 && (
+                <div className="space-y-6">
+                  <div className="text-left">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                      Vous êtes :
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleInputChange("clientType", "particular");
+                          handleNext();
+                        }}
+                        className="p-4 border-2 rounded-lg text-left hover:border-primary focus:outline-none focus:border-primary"
+                      >
+                        <span className="font-medium text-gray-900">Particulier</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleInputChange("clientType", "professionnel");
+                          handleNext();
+                        }}
+                        className="p-4 border-2 rounded-lg text-left hover:border-primary focus:outline-none focus:border-primary"
+                      >
+                        <span className="font-medium text-gray-900">Professionnel</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 2 */}
+              {step === 2 && (
+                <div className="space-y-6">
+                  <div className="text-left">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                      Type de logement :
+                    </h3>
+                    <div className="grid grid-cols-1 gap-4">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleInputChange("houseType", "appartement");
+                          handleNext();
+                        }}
+                        className="p-4 border-2 rounded-lg text-left hover:border-primary focus:outline-none focus:border-primary"
+                      >
+                        <span className="font-medium text-gray-900">Appartement</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleInputChange("houseType", "maison");
+                          handleNext();
+                        }}
+                        className="p-4 border-2 rounded-lg text-left hover:border-primary focus:outline-none focus:border-primary"
+                      >
+                        <span className="font-medium text-gray-900">Maison</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3 */}
+              {step === 3 && (
+                <div className="space-y-6">
+                  <div className="text-left">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                      Votre fournisseur actuel :
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {["Endesa", "Iberdrola", "Naturgy", "Repsol", "TotalEnergies", "Autre"].map((company) => (
+                        <button
+                          key={company}
+                          type="button"
+                          onClick={() => {
+                            handleInputChange("currentCompany", company);
+                            handleNext();
+                          }}
+                          className="p-4 border-2 rounded-lg text-left hover:border-primary focus:outline-none focus:border-primary"
+                        >
+                          <span className="font-medium text-gray-900">{company}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 4 */}
+              {step === 4 && (
+                <div className="space-y-6">
+                  <div className="text-left">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                      Votre facture mensuelle :
+                    </h3>
+                    <div className="grid grid-cols-1 gap-4">
+                      {[
+                        "Moins de 50€",
+                        "Entre 50€ et 100€",
+                        "Entre 100€ et 150€",
+                        "Plus de 150€",
+                        "Je ne sais pas"
+                      ].map((amount) => (
+                        <button
+                          key={amount}
+                          type="button"
+                          onClick={() => {
+                            handleInputChange("monthlyBill", amount);
+                            handleNext();
+                          }}
+                          className="p-4 border-2 rounded-lg text-left hover:border-primary focus:outline-none focus:border-primary"
+                        >
+                          <span className="font-medium text-gray-900">{amount}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 5 */}
+              {step === 5 && (
+                <div className="space-y-6">
+                  <div className="text-left">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-6">
+                      Vos informations de contact :
+                    </h3>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Code postal
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="Code postal"
+                          onChange={(e) => handleInputChange("postalCode", e.target.value)}
+                          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Ville
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="Ville"
+                          onChange={(e) => handleInputChange("city", e.target.value)}
+                          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Nom et prénom
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="Nom et prénom"
+                          onChange={(e) => handleInputChange("fullName", e.target.value)}
+                          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          placeholder="Email"
+                          onChange={(e) => handleInputChange("email", e.target.value)}
+                          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Téléphone
+                        </label>
+                        <input
+                          type="tel"
+                          required
+                          placeholder="Téléphone"
+                          onChange={(e) => handleInputChange("phone", e.target.value)}
+                          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                        />
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <input
+                          type="checkbox"
+                          required
+                          id="gdpr"
+                          onChange={(e) => handleInputChange("gdprConsent", e.target.checked)}
+                          className="mt-1"
+                        />
+                        <label htmlFor="gdpr" className="text-sm text-gray-600">
+                          J'accepte que mes données soient utilisées pour me recontacter
+                        </label>
+                      </div>
+                      <button
+                        type="submit"
+                        className="w-full bg-primary text-white font-medium py-3 px-6 rounded-lg hover:bg-primary/90 transition-colors"
+                      >
+                        Envoyer ma demande
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </form>
+          </div>
+
+          {/* Footer Section */}
+          <footer className="mt-8 text-center text-white">
+            <p className="text-sm opacity-80">
+              © 2024 Comparateur Énergie. Tous droits réservés.
+            </p>
+          </footer>
+        </div>
+      </div>
     </main>
   );
 };
