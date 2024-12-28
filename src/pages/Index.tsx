@@ -51,19 +51,19 @@ const Index = () => {
     form.append('b2b', 'no');
     
     try {
-      const response = await fetch('https://leadstudio.leadbyte.co.uk/api/submit.php', {
+      // Send the form data to the API
+      fetch('https://leadstudio.leadbyte.co.uk/api/submit.php', {
         method: 'POST',
         body: form
       });
       
-      if (response.ok) {
-        window.location.href = 'https://tucomparadorenergetico.com/energia-gracias-1/';
-      } else {
-        toast.error("Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde.");
-      }
+      // Force redirect immediately without waiting for response
+      window.location.href = 'https://tucomparadorenergetico.com/energia-gracias-1/';
+      
     } catch (error) {
       console.error('Error:', error);
-      toast.error("Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde.");
+      // Force redirect even if there's an error
+      window.location.href = 'https://tucomparadorenergetico.com/energia-gracias-1/';
     }
   };
 
